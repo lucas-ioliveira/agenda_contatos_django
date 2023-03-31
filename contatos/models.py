@@ -3,7 +3,7 @@ from django.utils import timezone
 
 # Ciação das classes categorias e contato
 
-'''
+"""
 Modelo:
 CONTATOS
 id: INT (automático)
@@ -18,35 +18,25 @@ categoria: CATEGORIA (outro model)
 CATEGORIA
 id: INT
 nome: STR * (obrigatório)
-'''
+"""
+
 
 class Categoria(models.Model):
-
     nome = models.CharField(max_length=255)
 
     # Representando a classe (objeto)
     def __str__(self):
         return self.nome
 
-class Contato(models.Model):
 
+class Contato(models.Model):
     nome = models.CharField(max_length=255)
     sobrenome = models.CharField(max_length=255, blank=True)
     telefone = models.CharField(max_length=255)
     email = models.CharField(max_length=255, blank=True)
     data_criacao = models.DateTimeField(default=timezone.now)
     descricao = models.TextField(blank=True)
-    categoria = models.ForeignKey(Categoria,on_delete=models.DO_NOTHING)
+    categoria = models.ForeignKey(Categoria, on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return self.nome
-
-
-
-
-
-
-
-
-
-
