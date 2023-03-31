@@ -12,8 +12,10 @@ from django.core.paginator import Paginator
 
 # Função que coleta todos os meus dados do db | paginação
 def index(request):
-    # Para coleta todos os dados do meu bd.
-    contatos = Contato.objects.all()
+    # Para coleta todos os dados do meu bd| Definindo a paginação.
+    contatos = Contato.objects.order_by('id').filter(
+        mostrar=True
+    )
     # Define a paginação e quantidades.
     paginator = Paginator(contatos, 3)
     # Coletando a pagina.
@@ -47,6 +49,9 @@ def index(request):
 def ver_contato(request, contato_id):
     # Para pegar um dado do meu bd| tratando erros
     contato = get_object_or_404(Contato, id=contato_id)
+    # Tratando erro http404
+    if not contato.mostrar:
+        raise Http404()
     # Retorno do dado
     return render(
         request,
