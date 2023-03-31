@@ -7,5 +7,4 @@ urlpatterns = [
     path("<int:contato_id>", views.ver_contato, name="ver_contato"),
     # Criação do campo busca
     path("busca/", views.busca, name="busca"),
-
 ]

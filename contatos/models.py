@@ -41,7 +41,7 @@ class Contato(models.Model):
     # Adicionando campo "mostrar" na área adm
     mostrar = models.BooleanField(default=True)
     # Para upload de imagens
-    foto = models.ImageField(blank=True, upload_to='fotos/%Y/%m/%d')
+    foto = models.ImageField(blank=True, upload_to="fotos/%Y/%m/%d")
 
     def __str__(self):
         return self.nome

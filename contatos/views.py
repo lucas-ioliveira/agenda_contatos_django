@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 
 # Levantando erro 404 (forma 'crua')
 from django.http import Http404
@@ -12,6 +12,9 @@ from django.core.paginator import Paginator
 # Campo de consulta
 from django.db.models import Q, Value
 from django.db.models.functions import Concat
+
+# Para menssagens
+from django.contrib import messages
 
 
 # Função que coleta todos os meus dados do db | paginação
@@ -64,25 +67,34 @@ def ver_contato(request, contato_id):
 
 # Função de busca
 def busca(request):
-    # Para coletar o termo
-    termo = request.GET.get('termo')
-    # Trantando erro vazio
+    # Para coletar o termo do imput
+    termo = request.GET.get("termo")
+
     if termo is None or not termo:
-        raise Http404()
+        messages.add_message(
+            request, messages.ERROR, "Campo termo não pode ficar vazio."
+        )
+        return redirect('index')
+    else:
+        messages.add_message(
+            request, messages.SUCCESS, 'Sucesso!'
+        )
+
     # Para concatenar o termo
-    campos = Concat('nome', Value(' '), 'sobrenome')
+    campos = Concat("nome", Value(" "), "sobrenome")
 
     # Para coleta o termo na views e buscar o dado no db.
-    contatos = Contato.objects.annotate(
-        nome_completo=campos
-    ).filter(
+    contatos = Contato.objects.annotate(nome_completo=campos).filter(
         Q(nome_completo__icontains=termo) | Q(telefone__icontains=termo),
     )
+
     # Define a paginação e quantidades.
     paginator = Paginator(contatos, 3)
+
     # Coletando a pagina.
     page = request.GET.get("p")
     contatos = paginator.get_page(page)
+
     # Retorno dos dados
     return render(
         request,
