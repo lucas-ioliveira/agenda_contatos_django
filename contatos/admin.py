@@ -5,7 +5,16 @@ from .models import Categoria, Contato
 # Modificando exibição
 class ContatoAdmin(admin.ModelAdmin):
     # Exibição
-    list_display = ("id", "nome", "sobrenome", "telefone")
+    list_display = (
+        "id",
+        "nome",
+        "sobrenome",
+        "telefone",
+        "email",
+        "data_criacao",
+        "categoria",
+        "mostrar",
+    )
     # Clicaveis para edição
     list_display_links = ("id", "nome")
     # Filtros
@@ -14,6 +23,8 @@ class ContatoAdmin(admin.ModelAdmin):
     list_per_page = 10
     # Filtros
     search_fields = ("nome", "sobrenome", "telefone")
+    # Edição sem entrar no contato
+    list_editable = ("telefone", "mostrar")
 
 
 # Registrando os modelos no admin do Django.

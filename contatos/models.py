@@ -37,6 +37,8 @@ class Contato(models.Model):
     data_criacao = models.DateTimeField(default=timezone.now)
     descricao = models.TextField(blank=True)
     categoria = models.ForeignKey(Categoria, on_delete=models.DO_NOTHING)
+    # Adicionando campo "mostrar" na área adm
+    mostrar = models.BooleanField(default=True)
 
     def __str__(self):
         return self.nome

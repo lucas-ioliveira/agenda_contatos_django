@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404
+
 # Levantando erro 404 (forma 'crua')
 from django.http import Http404
+
 # importando o meu model
 from .models import Contato
 
@@ -30,6 +32,7 @@ def index(request):
 #         )
 #     except Contato.DoesNotExist as e:
 #         raise Http404
+
 
 # Levantando erro 404 (forma 'convêncional')
 def ver_contato(request, contato_id):
