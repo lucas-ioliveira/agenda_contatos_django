@@ -9,17 +9,19 @@ from .models import Contato
 # Paginação
 from django.core.paginator import Paginator
 
+# Campo de consulta
+from django.db.models import Q, Value
+from django.db.models.functions import Concat
+
 
 # Função que coleta todos os meus dados do db | paginação
 def index(request):
     # Para coleta todos os dados do meu bd| Definindo a paginação.
-    contatos = Contato.objects.order_by('id').filter(
-        mostrar=True
-    )
+    contatos = Contato.objects.order_by("id").filter(mostrar=True)
     # Define a paginação e quantidades.
     paginator = Paginator(contatos, 3)
     # Coletando a pagina.
-    page = request.GET.get('p')
+    page = request.GET.get("p")
     contatos = paginator.get_page(page)
     # Retorno dos dados
     return render(
@@ -57,4 +59,34 @@ def ver_contato(request, contato_id):
         request,
         "contatos/ver_contato.html",
         {"contato": contato},  # Passo a chave e o valor (contém todos os dados).
+    )
+
+
+# Função de busca
+def busca(request):
+    # Para coletar o termo
+    termo = request.GET.get('termo')
+    # Trantando erro vazio
+    if termo is None or not termo:
+        raise Http404()
+    # Para concatenar o termo
+    campos = Concat('nome', Value(' '), 'sobrenome')
+
+    # Para coleta o termo na views e buscar o dado no db.
+    contatos = Contato.objects.annotate(
+        nome_completo=campos
+    ).filter(
+        Q(nome_completo__icontains=termo) | Q(telefone__icontains=termo),
+    )
+    # Define a paginação e quantidades.
+    paginator = Paginator(contatos, 3)
+    # Coletando a pagina.
+    page = request.GET.get("p")
+    contatos = paginator.get_page(page)
+    # Retorno dos dados
+    return render(
+        request,
+        "contatos/busca.html",
+        # Passo a chave e o valor (contém todos os dados).
+        {"contatos": contatos},
     )
