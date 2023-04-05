@@ -15,7 +15,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
@@ -26,7 +25,6 @@ SECRET_KEY = "django-insecure-n&!+%1ecwu_!qb(u1nua*+*x5dn7$0n-a$bh6k@fc6d(0$g$v0
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -71,7 +69,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "agenda.wsgi.application"
 
-
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
@@ -81,7 +78,6 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -101,7 +97,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
@@ -113,14 +108,13 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
-# Para arquivos estáticos(html,css,js,bootstrap)
+
+# Configuração da pasta com arquivos estáticos.
 STATIC_URL = "static/"
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "templates/static")]
-
-# Para upload de imagens
+# Configuração da pasta com arquivos de mídia.
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "media/"
 
@@ -129,12 +123,13 @@ MEDIA_URL = "media/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# Mensagens para o utilizador quando realizar algumas operações.
+# Mensagens com o django
 from django.contrib.messages import constants
+
 MESSAGE_TAGS = {
-    constants.ERROR: 'alert-danger',
-    constants.WARNING: 'alert-warning',
-    constants.DEBUG: 'alert-info',
-    constants.SUCCESS: 'alert-success',
-    constants.INFO: 'alert-info',
+    constants.ERROR: "alert-danger",
+    constants.WARNING: "alert-warning",
+    constants.DEBUG: "alert-info",
+    constants.SUCCESS: "alert-success",
+    constants.INFO: "alert-info",
 }

@@ -16,14 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-# Para upload de imagens
+# Importação de módulos do django para inserir imagens
 from django.conf import settings
 from django.conf.urls.static import static
 
-#  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
+"""
+inserir em urlpatterns
++ static(settings.MEDIA_URL, documents_root=settings.MEDIA_ROOT)
+"""
 urlpatterns = [
     path("", include("contatos.urls")),
-    path("accounts/", include("accounts.urls")),
     path("admin/", admin.site.urls),
+    path("accounts/", include("accounts.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

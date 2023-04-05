@@ -30,7 +30,6 @@ class Categoria(models.Model):
 
 
 class Contato(models.Model):
-    # Model padrão para cadastro
     nome = models.CharField(max_length=255)
     sobrenome = models.CharField(max_length=255, blank=True)
     telefone = models.CharField(max_length=255)
@@ -38,10 +37,8 @@ class Contato(models.Model):
     data_criacao = models.DateTimeField(default=timezone.now)
     descricao = models.TextField(blank=True)
     categoria = models.ForeignKey(Categoria, on_delete=models.DO_NOTHING)
-    # Adicionando campo "mostrar" na área adm
     mostrar = models.BooleanField(default=True)
-    # Para upload de imagens
-    foto = models.ImageField(blank=True, upload_to="fotos/%Y/%m/%d")
+    foto = models.ImageField(blank=True, upload_to="fotos/%Y/%m/")
 
     def __str__(self):
         return self.nome

@@ -3,8 +3,6 @@ from . import views
 
 urlpatterns = [
     path("", views.index, name="index"),
-    # Criação de um novo endpoint para a visualização de um único contato
-    path("<int:contato_id>", views.ver_contato, name="ver_contato"),
-    # Criação do campo busca
     path("busca/", views.busca, name="busca"),
+    path("<int:contato_id>", views.ver_contato, name="ver_contato"),
 ]
